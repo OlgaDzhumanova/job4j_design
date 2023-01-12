@@ -1,4 +1,4 @@
 package ru.generics;
 
-public class Predator extends Animal{
+public class Predator extends Animal {
 }
