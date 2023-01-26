@@ -7,35 +7,34 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     private int size = 0;
     private int modCount = 0;
     private Node<E> head;
-    private Node<E> last;
 
     @Override
     public void add(E value) {
         Node<E> node = new Node<>(value, null);
-        Node<E> l = last;
-        if (l == null || size == 0) {
+        if (head == null) {
             head = node;
-        } else {
-            last.next = node;
+            size++;
+            modCount++;
+            return;
         }
-        last = node;
+        Node<E> last = head;
+        while (last.next != null) {
+            last = last.next;
+        }
+        last.next = node;
         size++;
         modCount++;
     }
 
     @Override
     public E get(int index) {
-        indexOf(index);
+        Objects.checkIndex(index, size);
         Node<E> rsl = head;
         for (var i = 0; i < index; i++) {
             rsl = rsl.next;
         }
         return rsl.item;
 
-    }
-
-    private int indexOf(int index) {
-        return Objects.checkIndex(index, size);
     }
 
     @Override
